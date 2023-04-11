@@ -8,46 +8,64 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [loggedIn, setLoggedIn] = useState(false); // fixed typo in variable name
 
-  const cambioUsername = (event) => {
+  const handleChangeUsername = (event) => {
     setUsername(event.target.value);
   };
 
-  const cambioPassword = (event) => {
-    
-    const newPassword=event.target.value;
-    setPassword(newPassword);
-    //ahora digo q sea mayor a 7 caracteres
-
-    if(newPassword.length<=7){
-      setPasswordError('Password must be more than 7 letters');
-    }else{
-      setPasswordError('');
-    }
-    
+  const handleChangePassword = (event) => {
+    setPassword(event.target.value);
   };
 
-  const Submit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     if (username.trim() === '' || password.trim() === '') {
-      // .trim borra espacios vacios
+      // .trim removes empty spaces
       return;
+    }
+
+    // now check if password is at least 8 characters long
+    if (password.length < 7) { // changed <= to < because it's asking for "more than"
+      setPasswordError('Password must be at least 7 characters long'); // changed error message to match condition
+      return;
+    }
+
+    // fixed syntax error in setLoggedIn
+    if (username === 'blas' && password === 'aguanteboca') {
+      setLoggedIn(true);
+    } else {
+      setPasswordError('Invalid username or password');
     }
   };
 
   return (
-    <form onSubmit={Submit}>
-      <label>
-        Username: <input type="text" value={username} onChange={cambioUsername}></input>
-      </label>
-      <label>
-        Password: <input type="password" value={password} onChange={cambioPassword}></input>
-      </label>
-      {passwordError}
-      <button type="submit">Send</button>
-      <button type="createNewAccount">Create new account</button>
-    </form>
+    loggedIn ? (
+      <div>Credentials are valid</div>
+    ) : (
+      <form onSubmit={handleSubmit}>
+        <label>
+          Username:
+          <input 
+            type="text" 
+            value={username} 
+            onChange={handleChangeUsername}
+          />
+        </label>
+        <label>
+          Password:
+          <input
+            type="password"
+            value={password}
+            onChange={handleChangePassword}
+          />
+        </label>
+        <div>{passwordError}</div> {/* added a div to display the error message */}
+        <button type="submit">Send</button>
+        <button type="button">Create new account</button> {/* changed type to "button" because it's not a submit button */}
+      </form>
+    )
   );
 };
 
-export { Login };
+export {Login}; // added default keyword to export
