@@ -11,7 +11,7 @@ const App = () => {
   console.log('Here goes the Javascript code');
 
   // Html code goes here
-  return <Login/>
+  return <Login />;
 };
 
 export { App };
