@@ -26,11 +26,11 @@ const Login = () => {
 
     // now check if password is at least 7 characters long
     if (password.length < 7) { // changed <= to < because it's asking for "more than"
-      setPasswordError('Password must be at least 7 characters long'); // changed error message to match condition
+      setPasswordError('Password must be at least 7 characters long'); 
       return;
     }
 
-    // fixed syntax error in setLoggedIn
+    
     if (username === 'blas' && password === 'aguanteboca') {
       setLoggedIn(true);
     } else {
@@ -73,4 +73,4 @@ const Login = () => {
   );
 };
 
-export {Login}; // added default keyword to export
+export {Login}; 

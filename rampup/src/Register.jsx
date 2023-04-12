@@ -5,6 +5,7 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [registered, setRegistered] = useState(false);
+  const [conditionsMet, setConditionsMet] = useState(false);
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -12,6 +13,8 @@ const Register = () => {
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
+    setConditionsMet(event.target.value.trim()!='' && event.target.value.trim().length>7);
+
   };
 
   const handleCreate = (event) => {
@@ -31,8 +34,8 @@ const Register = () => {
     
   };
 
-  return registered ? (
-    <h1>You are now registered</h1>
+  return (registered ? (
+    <div>You are now registered</div>
   ) : (
     <form onCreate={handleCreate}>
       <label>
@@ -48,8 +51,9 @@ const Register = () => {
         />
       </label>
       <div>{passwordError}</div>
-      <button type="submit">Create</button>
+      <button type="submit" disabled={!conditionsMet}>Create</button>
     </form>
-  );
+    )
+  )
 };
 export { Register };
