@@ -1,14 +1,13 @@
-import { useState } from 'react';
 
-/**
- * This is the login component
- * @returns {JSX}
- */
+import { useState } from 'react';
+import  {Register}  from './Register';
+
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [loggedIn, setLoggedIn] = useState(false); // fixed typo in variable name
+  const [loggedIn, setLoggedIn] = useState(false); 
+  const [isRegistering, setIsRegistering] = useState(false);
 
   const handleChangeUsername = (event) => {
     setUsername(event.target.value);
@@ -25,7 +24,7 @@ const Login = () => {
       return;
     }
 
-    // now check if password is at least 8 characters long
+    // now check if password is at least 7 characters long
     if (password.length < 7) { // changed <= to < because it's asking for "more than"
       setPasswordError('Password must be at least 7 characters long'); // changed error message to match condition
       return;
@@ -39,10 +38,16 @@ const Login = () => {
     }
   };
 
+  const handleToggleForm = () => {
+    setIsRegistering(!isRegistering);
+  };
+
   return (
     loggedIn ? (
       <div>Credentials are valid</div>
-    ) : (
+    ) : isRegistering ? (
+        <Register passwordError={passwordError} setPasswordError={setPasswordError}/>
+      ) : ( 
       <form onSubmit={handleSubmit}>
         <label>
           Username:
@@ -60,9 +65,9 @@ const Login = () => {
             onChange={handleChangePassword}
           />
         </label>
-        <div>{passwordError}</div> {/* added a div to display the error message */}
+        <div>{passwordError}</div> 
         <button type="submit">Send</button>
-        <button type="button">Create new account</button> {/* changed type to "button" because it's not a submit button */}
+        <button type="button" onClick={handleToggleForm}>Create new account</button> {/* changed type to "button" because it's not a submit button */}
       </form>
     )
   );
