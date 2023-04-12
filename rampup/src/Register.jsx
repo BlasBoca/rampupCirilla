@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const Register = () => {
+const Register = ({handleBack}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
@@ -13,7 +13,7 @@ const Register = () => {
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
-    setConditionsMet(event.target.value.trim()!='' && event.target.value.trim().length>7);
+    setConditionsMet(event.target.value.trim()!=='' && event.target.value.trim().length>7);
 
   };
 
@@ -34,8 +34,12 @@ const Register = () => {
     
   };
 
+ 
   return (registered ? (
-    <div>You are now registered</div>
+    <div>You are now registered
+        <button onClick={handleBack}>Back</button>
+    </div>
+    
   ) : (
     <form onCreate={handleCreate}>
       <label>
@@ -51,7 +55,9 @@ const Register = () => {
         />
       </label>
       <div>{passwordError}</div>
+      <div>Password must have more than 7 characters</div>
       <button type="submit" disabled={!conditionsMet}>Create</button>
+      <button onClick={handleBack}>Back</button>
     </form>
     )
   )
