@@ -45,7 +45,7 @@ function App() {
       {showRegistration && !isLoggedIn && (
         <div>
           <Register handleCreate={handleRegister} />
-          <button onClick={() => setShowRegistration(false)}>Back to login</button>
+          <button onClick={() => setShowRegistration(false)}>Back</button>
         </div>
       )}
 

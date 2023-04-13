@@ -56,7 +56,7 @@ const Register = ({ handleCreate }) => {
           {passwordError && <div>{passwordError}</div>}
         </div>
         <button type="submit" disabled={password.length < 8}>
-          Register
+          Create
         </button>
       </form>
       {registered && <div>You are now registered</div>}
