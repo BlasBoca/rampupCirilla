@@ -1,5 +1,3 @@
-
-
 import React, { useState } from 'react';
 import { Login } from './Login';
 import { Register } from './Register';
@@ -19,10 +17,9 @@ function App() {
     );
     if (matchingCredentials.length > 0) {
       console.log('Credentials are valid');
-      setIsLoggedIn(true); 
+      setIsLoggedIn(true);
     } else {
       console.log('Invalid username or password');
-      
     }
   };
 
@@ -32,10 +29,9 @@ function App() {
 
   return (
     <div className="App">
-      {isLoggedIn ? ( 
+      {isLoggedIn ? (
         <h1>Welcome, you are now logged in</h1>
       ) : (
-        
         <>
           <Login handleLogin={handleLogin} />
           <Register handleCreate={handleRegister} />

@@ -30,18 +30,29 @@ const Register = ({ handleCreate }) => {
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="username">Username:</label>
-          <input type="text" id="username" value={username} onChange={handleUsernameChange} />
+          <input
+            type="text"
+            id="username"
+            value={username}
+            onChange={handleUsernameChange}
+          />
         </div>
         <div>
           <label htmlFor="password">Password:</label>
-          <input type="password" id="password" value={password} onChange={handlePasswordChange} />
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
           {passwordError && <div>{passwordError}</div>}
         </div>
-        <button type="submit">Register</button>
+        <button type="submit" disabled={password.length < 8}>
+          Register
+        </button>
       </form>
       {registered && <div>You are now registered</div>}
     </div>
   );
 };
-
-export {Register};
+export { Register };

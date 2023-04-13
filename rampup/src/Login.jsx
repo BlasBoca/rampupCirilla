@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-
 const Login = ({ handleLogin }) => {
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [passwordError, setPasswordError] = useState('');
@@ -44,10 +43,10 @@ const Login = ({ handleLogin }) => {
           />
           {passwordError && <div className="error">{passwordError}</div>}
         </div>
-        <button type="submit">Login</button>
+        <button type="submit">Send</button>
       </form>
     </div>
   );
 };
 
-export {Login};
+export { Login };
