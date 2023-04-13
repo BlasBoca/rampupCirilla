@@ -35,16 +35,22 @@ function App() {
 
   return (
     <div className="App">
-      {isLoggedIn ? (
-        <h1>Welcome, you are now logged in</h1>
-      ) : (
-        <>
+      {!showRegistration && !isLoggedIn && (
+        <div>
           <Login handleLogin={handleLogin} />
-          {showRegistration && <Register handleCreate={handleRegister} />}
-          {!showRegistration && (
-            <button onClick={handleCreateAccount}>Create a new account</button>
-          )}
-        </>
+          <button onClick={handleCreateAccount}>Create a new account</button>
+        </div>
+      )}
+
+      {showRegistration && !isLoggedIn && (
+        <div>
+          <Register handleCreate={handleRegister} />
+          <button onClick={() => setShowRegistration(false)}>Back to login</button>
+        </div>
+      )}
+
+      {isLoggedIn && (
+        <h1>Welcome, you are now logged in</h1>
       )}
     </div>
   );
