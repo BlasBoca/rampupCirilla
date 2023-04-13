@@ -1,17 +1,48 @@
-// Imports + links to css goes here
-import './App.css';
+
+
+import React, { useState } from 'react';
 import { Login } from './Login';
+import { Register } from './Register';
 
-/**
- * Functional component - ALT + J to activate this snippet to document the code
- * @returns {void}
- */
-const App = () => {
-  // Javascript code here
-  console.log('Here goes the Javascript code');
+function App() {
+  const [validCredentials, setValidCredentials] = useState([
+    { username: 'user1', password: 'pass1' },
+    { username: 'user2', password: 'pass2' },
+  ]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Html code goes here
-  return <Login />;
-};
+  const handleLogin = (formData) => {
+    const matchingCredentials = validCredentials.filter(
+      (credentials) =>
+        credentials.username === formData.username &&
+        credentials.password === formData.password
+    );
+    if (matchingCredentials.length > 0) {
+      console.log('Credentials are valid');
+      setIsLoggedIn(true); 
+    } else {
+      console.log('Invalid username or password');
+      
+    }
+  };
+
+  const handleRegister = (formData) => {
+    setValidCredentials([...validCredentials, formData]);
+  };
+
+  return (
+    <div className="App">
+      {isLoggedIn ? ( 
+        <h1>Welcome, you are now logged in</h1>
+      ) : (
+        
+        <>
+          <Login handleLogin={handleLogin} />
+          <Register handleCreate={handleRegister} />
+        </>
+      )}
+    </div>
+  );
+}
 
 export { App };

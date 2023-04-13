@@ -1,11 +1,10 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-const Register = ({handleBack}) => {
+const Register = ({ handleCreate }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
   const [registered, setRegistered] = useState(false);
-  const [conditionsMet, setConditionsMet] = useState(false);
+  const [passwordError, setPasswordError] = useState('');
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -13,53 +12,36 @@ const Register = ({handleBack}) => {
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
-    setConditionsMet(event.target.value.trim()!=='' && event.target.value.trim().length>7);
-
   };
 
-  const handleCreate = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-
-    if (username.trim() === '' || password.trim() === '') {
-      // .trim removes empty spaces
-      return;
-    }
-
-    if (password.length <= 7) {
+    if (password.length < 8) {
       setPasswordError('Password must have more than 7 characters');
-      return;
+    } else {
+      handleCreate({ username, password });
+      setRegistered(true);
     }
-
-    setRegistered(true);
-    
   };
 
- 
-  return (registered ? (
-    <div>You are now registered
-        <button onClick={handleBack}>Back</button>
+  return (
+    <div>
+      <h2>Register</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="username">Username:</label>
+          <input type="text" id="username" value={username} onChange={handleUsernameChange} />
+        </div>
+        <div>
+          <label htmlFor="password">Password:</label>
+          <input type="password" id="password" value={password} onChange={handlePasswordChange} />
+          {passwordError && <div>{passwordError}</div>}
+        </div>
+        <button type="submit">Register</button>
+      </form>
+      {registered && <div>You are now registered</div>}
     </div>
-    
-  ) : (
-    <form onCreate={handleCreate}>
-      <label>
-        Username:
-        <input type="text" value={username} onChange={handleUsernameChange} />
-      </label>
-      <label>
-        Password:
-        <input
-          type="password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-      </label>
-      <div>{passwordError}</div>
-      <div>Password must have more than 7 characters</div>
-      <button type="submit" disabled={!conditionsMet}>Create</button>
-      <button onClick={handleBack}>Back</button>
-    </form>
-    )
-  )
+  );
 };
-export { Register };
+
+export {Register};

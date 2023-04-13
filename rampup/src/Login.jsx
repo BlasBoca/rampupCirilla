@@ -1,76 +1,53 @@
+import React, { useState } from 'react';
 
-import { useState } from 'react';
-import  {Register}  from './Register';
 
-const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+const Login = ({ handleLogin }) => {
+  const [formData, setFormData] = useState({ username: '', password: '' });
   const [passwordError, setPasswordError] = useState('');
-  const [loggedIn, setLoggedIn] = useState(false); 
-  const [isRegistering, setIsRegistering] = useState(false);
-
-  const handleChangeUsername = (event) => {
-    setUsername(event.target.value);
-  };
-
-  const handleChangePassword = (event) => {
-    setPassword(event.target.value);
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (username.trim() === '' || password.trim() === '') {
-      // .trim removes empty spaces
+    if (formData.password.length < 8) {
+      setPasswordError('Password must have more than 7 characters');
       return;
     }
-
-    // now check if password is at least 7 characters long
-    if (password.length < 7) { // changed <= to < because it's asking for "more than"
-      setPasswordError('Password must be at least 7 characters long'); 
-      return;
-    }
-
-    
-    if (username === 'blas' && password === 'aguanteboca') {
-      setLoggedIn(true);
-    } else {
-      setPasswordError('Invalid username or password');
-    }
+    handleLogin(formData);
   };
 
-  const handleToggleForm = () => {
-    setIsRegistering(!isRegistering);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   return (
-    loggedIn ? (
-      <div>Credentials are valid</div>
-    ) : isRegistering ? (
-        <Register passwordError={passwordError} setPasswordError={setPasswordError}/>
-      ) : ( 
+    <div className="Login">
+      <h2>Login</h2>
       <form onSubmit={handleSubmit}>
-        <label>
-          Username:
-          <input 
-            type="text" 
-            value={username} 
-            onChange={handleChangeUsername}
+        <div className="form-group">
+          <label htmlFor="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
           />
-        </label>
-        <label>
-          Password:
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Password:</label>
           <input
             type="password"
-            value={password}
-            onChange={handleChangePassword}
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
           />
-        </label>
-        <div>{passwordError}</div> 
-        <button type="submit">Send</button>
-        <button type="button" onClick={handleToggleForm}>Create new account</button> {/* changed type to "button" because it's not a submit button */}
+          {passwordError && <div className="error">{passwordError}</div>}
+        </div>
+        <button type="submit">Login</button>
       </form>
-    )
+    </div>
   );
 };
 
-export {Login}; 
+export {Login};
