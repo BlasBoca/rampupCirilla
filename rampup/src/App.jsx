@@ -27,6 +27,12 @@ function App() {
     setValidCredentials([...validCredentials, formData]);
   };
 
+  const [showRegistration, setShowRegistration] = useState(false);
+
+  const handleCreateAccount = () => {
+    setShowRegistration(true);
+  };
+
   return (
     <div className="App">
       {isLoggedIn ? (
@@ -34,7 +40,10 @@ function App() {
       ) : (
         <>
           <Login handleLogin={handleLogin} />
-          <Register handleCreate={handleRegister} />
+          {showRegistration && <Register handleCreate={handleRegister} />}
+          {!showRegistration && (
+            <button onClick={handleCreateAccount}>Create a new account</button>
+          )}
         </>
       )}
     </div>

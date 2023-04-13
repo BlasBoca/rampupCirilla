@@ -5,6 +5,7 @@ const Register = ({ handleCreate }) => {
   const [password, setPassword] = useState('');
   const [registered, setRegistered] = useState(false);
   const [passwordError, setPasswordError] = useState('');
+  const [usernameError, setUsernameError] = useState('');
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -18,10 +19,16 @@ const Register = ({ handleCreate }) => {
     event.preventDefault();
     if (password.length < 8) {
       setPasswordError('Password must have more than 7 characters');
-    } else {
-      handleCreate({ username, password });
-      setRegistered(true);
+      setUsernameError('');
+      return;
     }
+    if (username === '') {
+      setUsernameError('Username must not be empty');
+      setPasswordError('');
+      return;
+    }
+    handleCreate({ username, password });
+    setRegistered(true);
   };
 
   return (
@@ -36,6 +43,7 @@ const Register = ({ handleCreate }) => {
             value={username}
             onChange={handleUsernameChange}
           />
+          {usernameError && <div>{usernameError}</div>}
         </div>
         <div>
           <label htmlFor="password">Password:</label>
