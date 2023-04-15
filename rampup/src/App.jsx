@@ -102,12 +102,12 @@ function App() {
               />
             </div>
             <div>
-              <label htmlFor="id">ID:</label>
+              <label htmlFor="DNI">DNI:</label>
               <input
                 type="text"
-                id="id"
-                name="id"
-                value={formData.id}
+                id="DNI"
+                name="DNI"
+                value={formData.DNI}
                 onChange={handleChange}
               />
             </div>
@@ -115,11 +115,13 @@ function App() {
           </form>
           <div>
           {savedData.map((data) => (
-              <div key={data.id}>
-                <span>Name: {data.name} </span>
-                <span>Last Name: {data.lastName} </span>
-                <span>Age: {data.age}</span>
-                </div>
+              <ul key={data.id}>
+                <li>Name: {data.name} </li>
+                <li>Last Name: {data.lastName} </li>
+                <li>Age: {data.age}</li>
+                <li>DNI: {data.DNI}</li>
+                <button onClick={() => handleDelete(data.DNI)}>Delete</button>
+                </ul>
             ))}
           </div>
           <button onClick={() => setIsLoggedIn(false)}>Log out</button>
