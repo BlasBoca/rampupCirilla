@@ -8,7 +8,12 @@ function App() {
     { username: 'user2', password: 'pass2' },
   ]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [formData, setFormData] = useState({ name: '', lastName: '', age: '', id: '' });
+  const [formData, setFormData] = useState({
+    name: '',
+    lastName: '',
+    age: '',
+    id: '',
+  });
   const [savedData, setSavedData] = useState([]);
 
   const handleLogin = (formData) => {
@@ -69,26 +74,28 @@ function App() {
 
       {isLoggedIn && (
         <div>
-        <h1>Welcome, you are now logged in</h1>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor='name'>Name:</label>
-            <input 
-              type='text'
-              id='name'
-              name='name'
-              value={formData.name}
-              onChange={handleChange}
+          <h1>Welcome, you are now logged in</h1>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label htmlFor="name">Name:</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
               />
-          </div>
-          <div>
-          <label htmlFor="lastName">Last name:</label>
+            </div>
+            <div>
+              <label htmlFor="lastName">Last name:</label>
               <input
                 type="text"
                 id="lastName"
                 name="lastName"
                 value={formData.lastName}
                 onChange={handleChange}
+                required
               />
             </div>
             <div>
@@ -99,6 +106,7 @@ function App() {
                 name="age"
                 value={formData.age}
                 onChange={handleChange}
+                required
               />
             </div>
             <div>
@@ -109,20 +117,34 @@ function App() {
                 name="DNI"
                 value={formData.DNI}
                 onChange={handleChange}
+                required
               />
             </div>
             <button type="submit">Send</button>
           </form>
           <div>
-          {savedData.map((data) => (
+            {savedData.map((data) => (
               <ul key={data.id}>
                 <li>Name: {data.name} </li>
                 <li>Last Name: {data.lastName} </li>
                 <li>Age: {data.age}</li>
                 <li>DNI: {data.DNI}</li>
                 <button onClick={() => handleDelete(data.DNI)}>Delete</button>
-                </ul>
+              </ul>
             ))}
+          </div>
+
+          <div>
+            <h1>Delete person by DNI</h1>
+            <label>DNI:</label>
+            <input type="text" id="DNI" name="DNI"></input>
+            <button type="submit">Send</button>
+          </div>
+          <div>
+            <h1>Search person by DNI</h1>
+            <label>DNI:</label>
+            <input type="text" id="DNI" name="DNI"></input>
+            
           </div>
           <button onClick={() => setIsLoggedIn(false)}>Log out</button>
         </div>
