@@ -16,7 +16,7 @@ function App() {
   });
   const [savedData, setSavedData] = useState([]);
   const [deleteID, setDeleteID] = useState('');
-  const [filteredData, setFilteredData] = useState([]);
+  
 
   const handleLogin = (formData) => {
     const matchingCredentials = validCredentials.filter(
@@ -61,9 +61,14 @@ function App() {
     }
   };
 
-  const handleSearch = () => {
-    // TODO: implement search functionality
+  const handleSearch = () => { 
+    const searchID = document.getElementById('searchID').value; //MODIFICAR PARA NO USAR EL getElementById (probar usar el formData)
+    if (searchID) {
+      const matchedData = savedData.filter((data) => data.ID === searchID);
+      setSavedData(matchedData);
+    }
   };
+  //Cumple la funcion de buscar pero cuando borro lo ingresado no me regresa los demas datos
 
   return (
     <div className="App">
@@ -162,7 +167,7 @@ function App() {
             <h1>Search person by ID</h1>
             <label>ID:</label>
             <input type="text" id="searchID" name="searchID"></input>
-            <button type="button">Search</button>
+            <button type="button" onClick={handleSearch}>Search</button>
           </div>
           <button onClick={() => setIsLoggedIn(false)}>Log out</button>
         </div>
