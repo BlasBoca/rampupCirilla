@@ -12,9 +12,11 @@ function App() {
     name: '',
     lastName: '',
     age: '',
-    id: '',
+    ID: '',
   });
   const [savedData, setSavedData] = useState([]);
+  const [deleteID, setDeleteID] = useState('');
+  const [filteredData, setFilteredData] = useState([]);
 
   const handleLogin = (formData) => {
     const matchingCredentials = validCredentials.filter(
@@ -47,13 +49,20 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setSavedData([...savedData, formData]);
-    setFormData({ name: '', lastName: '', age: '', id: '' });
+    setSavedData([...savedData, { ...formData, show: true }]);
+    setFormData({ name: '', lastName: '', age: '', ID: '' });
   };
 
-  const handleDelete = (idToDelete) => {
-    const newData = savedData.filter((data) => data.id !== idToDelete);
-    setSavedData(newData);
+  const handleDelete = (event) => {
+    event.preventDefault();
+    if (deleteID) {
+      setSavedData(savedData.filter((item) => item.ID !== deleteID));
+      setDeleteID('');
+    }
+  };
+
+  const handleSearch = () => {
+    // TODO: implement search functionality
   };
 
   return (
@@ -110,12 +119,12 @@ function App() {
               />
             </div>
             <div>
-              <label htmlFor="DNI">DNI:</label>
+              <label htmlFor="ID">ID:</label>
               <input
                 type="text"
-                id="DNI"
-                name="DNI"
-                value={formData.DNI}
+                id="ID"
+                name="ID"
+                value={formData.ID}
                 onChange={handleChange}
                 required
               />
@@ -123,28 +132,37 @@ function App() {
             <button type="submit">Send</button>
           </form>
           <div>
-            {savedData.map((data) => (
-              <ul key={data.id}>
-                <li>Name: {data.name} </li>
-                <li>Last Name: {data.lastName} </li>
-                <li>Age: {data.age}</li>
-                <li>DNI: {data.DNI}</li>
-                <button onClick={() => handleDelete(data.DNI)}>Delete</button>
-              </ul>
-            ))}
+            {savedData
+              .filter((data) => data.ID !== deleteID)
+              .map((data) => (
+                <ul key={data.id}>
+                  <li>Name: {data.name} </li>
+                  <li>Last Name: {data.lastName} </li>
+                  <li>Age: {data.age}</li>
+                  <li>ID: {data.ID}</li>
+                </ul>
+              ))}
           </div>
 
           <div>
-            <h1>Delete person by DNI</h1>
-            <label>DNI:</label>
-            <input type="text" id="DNI" name="DNI"></input>
-            <button type="submit">Send</button>
+            <h1>Delete person by ID</h1>
+            <label>ID:</label>
+            <input
+              type="text"
+              name="deleteID"
+              value={deleteID}
+              onChange={(e) => setDeleteID(e.target.value)}
+            ></input>
+            <button type="button" onClick={handleDelete}>
+              Delete
+            </button>
           </div>
+
           <div>
-            <h1>Search person by DNI</h1>
-            <label>DNI:</label>
-            <input type="text" id="DNI" name="DNI"></input>
-            
+            <h1>Search person by ID</h1>
+            <label>ID:</label>
+            <input type="text" id="searchID" name="searchID"></input>
+            <button type="button">Search</button>
           </div>
           <button onClick={() => setIsLoggedIn(false)}>Log out</button>
         </div>
