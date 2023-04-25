@@ -65,20 +65,6 @@ function App() {
     }
   };
 
-  const handleSearch = (event) => {
-    event.preventDefault();
-    if (searchID) {
-      setSavedData(savedData.filter((item) => item.ID === searchID));
-      setSearchID('');
-    }
-  };
-
-  const handleClearSearch = (event) => {
-    event.preventDefault();
-    setSavedData([...savedData]);
-    setSearchID('');
-  };
-
   return (
     <div className="App">
       {!showRegistration && !isLoggedIn && (
