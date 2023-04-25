@@ -16,7 +16,7 @@ function App() {
   });
   const [savedData, setSavedData] = useState([]);
   const [deleteID, setDeleteID] = useState('');
-  
+  const [searchID, setSearchID] = useState('');
 
   const handleLogin = (formData) => {
     const matchingCredentials = validCredentials.filter(
@@ -59,16 +59,25 @@ function App() {
       setSavedData(savedData.filter((item) => item.ID !== deleteID));
       setDeleteID('');
     }
-  };
-
-  const handleSearch = () => { 
-    const searchID = document.getElementById('searchID').value; //MODIFICAR PARA NO USAR EL getElementById (probar usar el formData)
     if (searchID) {
-      const matchedData = savedData.filter((data) => data.ID === searchID);
-      setSavedData(matchedData);
+      setSavedData(savedData.filter((item) => item.ID === searchID));
+      setSearchID('');
     }
   };
-  //Cumple la funcion de buscar pero cuando borro lo ingresado no me regresa los demas datos
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    if (searchID) {
+      setSavedData(savedData.filter((item) => item.ID === searchID));
+      setSearchID('');
+    }
+  };
+
+  const handleClearSearch = (event) => {
+    event.preventDefault();
+    setSavedData([...savedData]);
+    setSearchID('');
+  };
 
   return (
     <div className="App">
@@ -136,9 +145,10 @@ function App() {
             </div>
             <button type="submit">Send</button>
           </form>
+
           <div>
             {savedData
-              .filter((data) => data.ID !== deleteID)
+              .filter((data) => !searchID || data.ID === searchID)
               .map((data) => (
                 <ul key={data.id}>
                   <li>Name: {data.name} </li>
@@ -164,11 +174,19 @@ function App() {
           </div>
 
           <div>
-            <h1>Search person by ID</h1>
+            <h1>Search by ID</h1>
             <label>ID:</label>
-            <input type="text" id="searchID" name="searchID"></input>
-            <button type="button" onClick={handleSearch}>Search</button>
+            <input
+              type="text"
+              name="searchID"
+              value={searchID}
+              onChange={(e) => setSearchID(e.target.value)}
+            ></input>
+            <button type="button" onClick={handleDelete}>
+              Search
+            </button>
           </div>
+
           <button onClick={() => setIsLoggedIn(false)}>Log out</button>
         </div>
       )}
