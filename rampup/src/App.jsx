@@ -168,9 +168,6 @@ function App() {
               value={searchID}
               onChange={(e) => setSearchID(e.target.value)}
             ></input>
-            <button type="button" onClick={handleDelete}>
-              Search
-            </button>
           </div>
 
           <button onClick={() => setIsLoggedIn(false)}>Log out</button>
