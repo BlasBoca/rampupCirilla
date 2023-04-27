@@ -43,7 +43,7 @@ const Login = ({ handleLogin }) => {
           />
           {passwordError && <div className="error">{passwordError}</div>}
         </div>
-        <button type="submit">Send</button>
+        <button className="botonVerde" type="submit">Send</button>
       </form>
     </div>
   );

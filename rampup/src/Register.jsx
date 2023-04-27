@@ -55,7 +55,7 @@ const Register = ({ handleCreate }) => {
           />
           {passwordError && <div>{passwordError}</div>}
         </div>
-        <button type="submit" disabled={password.length < 8}>
+        <button className="botonVerde" type="submit" disabled={password.length < 8}>
           Create
         </button>
       </form>

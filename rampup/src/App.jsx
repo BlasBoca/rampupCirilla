@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Login } from './Login';
 import { Register } from './Register';
+import './App.css';
 
 function App() {
   const [validCredentials, setValidCredentials] = useState([
@@ -129,7 +130,7 @@ function App() {
                 required
               />
             </div>
-            <button type="submit">Send</button>
+            <button className="botonVerde" type="submit">Send</button>
           </form>
 
           <div>
@@ -154,7 +155,7 @@ function App() {
               value={deleteID}
               onChange={(e) => setDeleteID(e.target.value)}
             ></input>
-            <button type="button" onClick={handleDelete}>
+            <button className="botonRojo" type="button" onClick={handleDelete}>
               Delete
             </button>
           </div>
@@ -170,7 +171,7 @@ function App() {
             ></input>
           </div>
 
-          <button onClick={() => setIsLoggedIn(false)}>Log out</button>
+          <button className="botonRojo" onClick={() => setIsLoggedIn(false)}>Log out</button>
         </div>
       )}
     </div>
