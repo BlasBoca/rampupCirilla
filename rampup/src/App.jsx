@@ -130,7 +130,7 @@ function App() {
                 required
               />
             </div>
-            <button className="botonVerde" type="submit">Send</button>
+            <button className="greenButton" type="submit">Send</button>
           </form>
 
           <div>
@@ -155,7 +155,7 @@ function App() {
               value={deleteID}
               onChange={(e) => setDeleteID(e.target.value)}
             ></input>
-            <button className="botonRojo" type="button" onClick={handleDelete}>
+            <button className="redButton" type="button" onClick={handleDelete}>
               Delete
             </button>
           </div>
@@ -171,7 +171,7 @@ function App() {
             ></input>
           </div>
 
-          <button className="botonRojo" onClick={() => setIsLoggedIn(false)}>Log out</button>
+          <button className="redButton" onClick={() => setIsLoggedIn(false)}>Log out</button>
         </div>
       )}
     </div>
