@@ -52,7 +52,11 @@ const Register = ({ handleCreate }) => {
           {passwordError && <div>{passwordError}</div>}
           <h2>Password must have more than 8 characters</h2>
         </div>
-        <button className="greenButton" type="submit" disabled={password.length < 8}>
+        <button
+          className="greenButton"
+          type="submit"
+          disabled={password.length < 8}
+        >
           Create
         </button>
       </form>

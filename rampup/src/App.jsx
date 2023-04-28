@@ -128,7 +128,9 @@ function App() {
                 required
               />
             </div>
-            <button className="greenButton" type="submit">Send</button>
+            <button className="greenButton" type="submit">
+              Send
+            </button>
           </form>
 
           <div>
@@ -169,7 +171,9 @@ function App() {
             ></input>
           </div>
 
-          <button className="redButton" onClick={() => setIsLoggedIn(false)}>Log out</button>
+          <button className="redButton" onClick={() => setIsLoggedIn(false)}>
+            Log out
+          </button>
         </div>
       )}
     </div>
