@@ -4,10 +4,7 @@ import { Register } from './Register';
 import './App.css';
 
 function App() {
-  const [validCredentials, setValidCredentials] = useState([
-    { username: 'user1', password: 'pass1' },
-    { username: 'user2', password: 'pass2' },
-  ]);
+  const [validCredentials, setValidCredentials] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -30,11 +27,12 @@ function App() {
       setIsLoggedIn(true);
     } else {
       console.log('Invalid username or password');
+      alert('Invalid username or password');
     }
   };
 
   const handleRegister = (formData) => {
-    setValidCredentials([...validCredentials, formData]);
+    setValidCredentials([formData]);
   };
 
   const [showRegistration, setShowRegistration] = useState(false);

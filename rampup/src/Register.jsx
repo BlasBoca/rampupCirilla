@@ -11,10 +11,6 @@ const Register = ({ handleCreate }) => {
     setUsername(event.target.value);
   };
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
     if (password.length < 8) {
@@ -51,11 +47,12 @@ const Register = ({ handleCreate }) => {
             type="password"
             id="password"
             value={password}
-            onChange={handlePasswordChange}
+            onChange={(event) => setPassword(event.target.value)}
           />
           {passwordError && <div>{passwordError}</div>}
+          <h2>Password must have more than 8 characters</h2>
         </div>
-        <button className="botonVerde" type="submit" disabled={password.length < 8}>
+        <button className="greenButton" type="submit" disabled={password.length < 8}>
           Create
         </button>
       </form>
